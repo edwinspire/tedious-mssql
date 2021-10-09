@@ -1,0 +1,26 @@
+{
+  "name": "tedious-mssql",
+  "version": "1.0.0",
+  "description": "Wrapper over tedious package to connect with MSSQL servers.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwinspire/tedious-mssql.git"
+  },
+  "keywords": [
+    "mssql",
+    "tedious"
+  ],
+  "author": "edwinspire",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/edwinspire/tedious-mssql/issues"
+  },
+  "homepage": "https://github.com/edwinspire/tedious-mssql#readme",
+  "dependencies": {
+    "tedious": "^13.1.0"
+  }
+}
