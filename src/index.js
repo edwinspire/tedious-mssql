@@ -146,7 +146,7 @@ module.exports = class TediousMssql {
               request.addParameter(param.name, param.type, param.value);
             });
           }
-          //console.log(query, params);
+          console.log(query, params);
           connection.execSql(request);
         }
       });
