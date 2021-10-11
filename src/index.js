@@ -29,72 +29,80 @@ module.exports = class TediousMssql {
     };
   }
   execSql(query, array_parameters) {
-    let params = array_parameters.map((element, i) => {
-      let MSSQLFielType = TYPES.Text;
-      switch (element.type) {
-        case "BigInt":
-          MSSQLFielType = TYPES.BigInt;
-          break;
-        case "Time":
-          MSSQLFielType = TYPES.Time;
-          break;
-        case "TinyInt":
-          MSSQLFielType = TYPES.TinyInt;
-          break;
-        case "UDT":
-          MSSQLFielType = TYPES.UDT;
-          break;
-        case "UniqueIdentifier":
-          MSSQLFielType = TYPES.UniqueIdentifier;
-          break;
-        case "VarBinary":
-          MSSQLFielType = TYPES.VarBinary;
-          break;
-        case "VarChar":
-          MSSQLFielType = TYPES.VarChar;
-          break;
-        case "Xml":
-          MSSQLFielType = TYPES.Xml;
-        case "Date":
-          MSSQLFielType = TYPES.Date;
-          break;
-        case "DateTime":
-          MSSQLFielType = TYPES.DateTime;
-          break;
-        case "Decimal":
-          MSSQLFielType = TYPES.Decimal;
-          break;
-        case "Float":
-          MSSQLFielType = TYPES.Float;
-          break;
-        case "Money":
-          MSSQLFielType = TYPES.Money;
-          break;
-        case "Numeric":
-          MSSQLFielType = TYPES.Numeric;
-          break;
-        case "SmallDateTime":
-          MSSQLFielType = TYPES.SmallDateTime;
-          break;
-        case "SmallInt":
-          MSSQLFielType = TYPES.SmallInt;
-          break;
-        case "Int":
-          MSSQLFielType = TYPES.Int;
-          break;
-        case "NVarChar":
-          MSSQLFielType = TYPES.NVarChar;
-          break;
-        case "Char":
-          MSSQLFielType = TYPES.Char;
-          break;
-        case "NChar":
-          MSSQLFielType = TYPES.NChar;
-          break;
-      }
+    let params = [];
 
-      return { name: element.name, type: MSSQLFielType, value: element.value };
-    });
+    if (array_parameters && Array.isArray(array_parameters)) {
+      let params = array_parameters.map((element, i) => {
+        let MSSQLFielType = TYPES.Text;
+        switch (element.type) {
+          case "BigInt":
+            MSSQLFielType = TYPES.BigInt;
+            break;
+          case "Time":
+            MSSQLFielType = TYPES.Time;
+            break;
+          case "TinyInt":
+            MSSQLFielType = TYPES.TinyInt;
+            break;
+          case "UDT":
+            MSSQLFielType = TYPES.UDT;
+            break;
+          case "UniqueIdentifier":
+            MSSQLFielType = TYPES.UniqueIdentifier;
+            break;
+          case "VarBinary":
+            MSSQLFielType = TYPES.VarBinary;
+            break;
+          case "VarChar":
+            MSSQLFielType = TYPES.VarChar;
+            break;
+          case "Xml":
+            MSSQLFielType = TYPES.Xml;
+          case "Date":
+            MSSQLFielType = TYPES.Date;
+            break;
+          case "DateTime":
+            MSSQLFielType = TYPES.DateTime;
+            break;
+          case "Decimal":
+            MSSQLFielType = TYPES.Decimal;
+            break;
+          case "Float":
+            MSSQLFielType = TYPES.Float;
+            break;
+          case "Money":
+            MSSQLFielType = TYPES.Money;
+            break;
+          case "Numeric":
+            MSSQLFielType = TYPES.Numeric;
+            break;
+          case "SmallDateTime":
+            MSSQLFielType = TYPES.SmallDateTime;
+            break;
+          case "SmallInt":
+            MSSQLFielType = TYPES.SmallInt;
+            break;
+          case "Int":
+            MSSQLFielType = TYPES.Int;
+            break;
+          case "NVarChar":
+            MSSQLFielType = TYPES.NVarChar;
+            break;
+          case "Char":
+            MSSQLFielType = TYPES.Char;
+            break;
+          case "NChar":
+            MSSQLFielType = TYPES.NChar;
+            break;
+        }
+
+        return {
+          name: element.name,
+          type: MSSQLFielType,
+          value: element.value,
+        };
+      });
+    }
 
     return new Promise((resolve, reject) => {
       let connection = new Connection(this.config);
