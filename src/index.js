@@ -32,7 +32,7 @@ module.exports = class TediousMssql {
     let params = [];
 
     if (array_parameters && Array.isArray(array_parameters)) {
-      let params = array_parameters.map((element, i) => {
+      params = array_parameters.map((element, i) => {
         let MSSQLFielType = TYPES.Text;
         switch (element.type) {
           case "BigInt":
@@ -146,7 +146,7 @@ module.exports = class TediousMssql {
               request.addParameter(param.name, param.type, param.value);
             });
           }
-          console.log(query, params);
+          //console.log(query, params);
           connection.execSql(request);
         }
       });
