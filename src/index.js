@@ -141,47 +141,12 @@ module.exports = class TediousMssql {
             }
           });
 
-          /*
-                    let result = "";
-                    request.on('row', function(columns) {  
-                      console.log('row', columns);
-                      columns.forEach(function(column) {  
-                        if (column.value === null) {  
-                          console.log('NULL');  
-                        } else {  
-                          result+= column.value + " ";  
-                        }  
-                      });  
-                      console.log(result);  
-                      result ="";  
-                  }); 
-          */
-          /*
-                    request.on("done", function (rowCount, more, rows) {
-                      console.log('done', rowCount + " rows returned", more, rows);
-                      //connection.close();
-                      resolve(rows);
-                    });
-          
-                    request.on("doneInProc", function (rowCount, more, rows) {
-                      console.log('doneInProc', rowCount + " rows returned", more, rows);
-                      //connection.close();
-                      resolve(rows);
-                    });
-          
-                    request.on("doneProc", function (rowCount, more, returnStatus, rows) {
-                      console.log('doneProc', rowCount + " rows returned", more, rows);
-                      //connection.close();
-                      resolve(rows);
-                    });
-          */
-
           if (params && params.length > 0) {
             params.forEach((param) => {
               request.addParameter(param.name, param.type, param.value);
             });
           }
-
+          console.log(query, params);
           connection.execSql(request);
         }
       });
