@@ -1,5 +1,5 @@
 {
-  "name": "tedious-mssql",
+  "name": "@edwinspire/tedious-mssql",
   "version": "1.0.0",
   "description": "Wrapper over tedious package to connect with MSSQL servers.",
   "main": "src/index.js",
