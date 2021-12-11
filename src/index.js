@@ -6,9 +6,31 @@ const { TYPES } = require("tedious");
 
 module.exports = class TediousMssql {
   constructor(conf) {
-    conf.options = conf.options || {};
+    //conf.options = conf.options || {};
+    this.config = conf;
+    this.config.options = conf.options || {};
+
+    if (this.config.options) {
+      this.config.encrypt = conf.options.encrypt || false;
+      this.config.database = conf.options.database || "msdb";
+      this.config.requestTimeout = conf.options.requestTimeout || 15000;
+      this.config.useColumnNames = conf.options.useColumnNames || true;
+      this.config.rowCollectionOnDone =
+        conf.options.rowCollectionOnDone || true;
+      this.config.trustServerCertificate =
+        conf.options.trustServerCertificate || false;
+      this.config.rowCollectionOnRequestCompletion =
+        conf.options.rowCollectionOnRequestCompletion || true;
+      this.config.debug = conf.options.debug || false;
+    }
+
+    if (TEDIOUS_MSSQL_DEBUG === "true") {
+      console.log("Config: ", this.config);
+    }
+
+    /*
     this.config = {
-      server: conf.server || "localhost",
+      server: this.conf.server || "localhost",
       options: {
         encrypt: conf.options.encrypt || false,
         database: conf.options.database || "msdb",
@@ -18,7 +40,7 @@ module.exports = class TediousMssql {
         trustServerCertificate: conf.options.trustServerCertificate || false,
         rowCollectionOnRequestCompletion:
           conf.options.rowCollectionOnRequestCompletion || true,
-        debug: { token: false },
+        debug: conf.options.debug || false,
       },
       authentication: {
         type: "default",
@@ -28,6 +50,7 @@ module.exports = class TediousMssql {
         },
       },
     };
+    */
   }
   execSql(query, array_parameters) {
     let params = [];
