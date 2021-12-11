@@ -12,17 +12,14 @@ module.exports = class TediousMssql {
     this.config.authentication = conf.authentication || {};
 
     if (this.config.options) {
-      this.config.encrypt = conf.options.encrypt || false;
-      this.config.database = conf.options.database || "msdb";
-      this.config.requestTimeout = conf.options.requestTimeout || 15000;
-      this.config.useColumnNames = conf.options.useColumnNames || true;
-      this.config.rowCollectionOnDone =
-        conf.options.rowCollectionOnDone || true;
-      this.config.trustServerCertificate =
-        conf.options.trustServerCertificate || false;
-      this.config.rowCollectionOnRequestCompletion =
-        conf.options.rowCollectionOnRequestCompletion || true;
-      this.config.debug = conf.options.debug || false;
+      this.config.options.encrypt = conf.options.encrypt || false;
+      this.config.options.database = conf.options.database || "msdb";
+      this.config.options.requestTimeout = conf.options.requestTimeout || 15000;
+      this.config.options.useColumnNames = conf.options.useColumnNames || true;
+      this.config.options.rowCollectionOnDone =  conf.options.rowCollectionOnDone || true;
+      this.config.options.trustServerCertificate =     conf.options.trustServerCertificate || false;
+      this.config.options.rowCollectionOnRequestCompletion = conf.options.rowCollectionOnRequestCompletion || true;
+      this.config.options.debug = conf.options.debug || false;
     }
 
     if (this.config.authentication) {
