@@ -140,6 +140,7 @@ module.exports = class TediousMssql {
           console.log("Connection ended");
         }
       });
+
       connection.on("error", function (err) {
         if (TEDIOUS_MSSQL_DEBUG === "true") {
           console.trace("Connection error: ", err);
