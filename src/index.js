@@ -16,9 +16,12 @@ module.exports = class TediousMssql {
       this.config.options.database = conf.options.database || "msdb";
       this.config.options.requestTimeout = conf.options.requestTimeout || 15000;
       this.config.options.useColumnNames = conf.options.useColumnNames || true;
-      this.config.options.rowCollectionOnDone =  conf.options.rowCollectionOnDone || true;
-      this.config.options.trustServerCertificate =     conf.options.trustServerCertificate || false;
-      this.config.options.rowCollectionOnRequestCompletion = conf.options.rowCollectionOnRequestCompletion || true;
+      this.config.options.rowCollectionOnDone =
+        conf.options.rowCollectionOnDone || true;
+      this.config.options.trustServerCertificate =
+        conf.options.trustServerCertificate || false;
+      this.config.options.rowCollectionOnRequestCompletion =
+        conf.options.rowCollectionOnRequestCompletion || true;
       this.config.options.debug = conf.options.debug || false;
     }
 
@@ -131,10 +134,6 @@ module.exports = class TediousMssql {
     }
 
     return new Promise((resolve, reject) => {
-      if (TEDIOUS_MSSQL_DEBUG === "true") {
-        console.log("Config: ", this.config);
-      }
-
       let connection = new Connection(this.config);
       connection.on("end", function () {
         if (TEDIOUS_MSSQL_DEBUG === "true") {
@@ -146,6 +145,13 @@ module.exports = class TediousMssql {
           console.trace("Connection error: ", err);
         }
       });
+
+      if (TEDIOUS_MSSQL_DEBUG === "true") {
+        connection.on("debug", function (text) {
+          console.log(text);
+        });
+      }
+
       connection.on("connect", function (err) {
         if (err) {
           if (TEDIOUS_MSSQL_DEBUG === "true") {
