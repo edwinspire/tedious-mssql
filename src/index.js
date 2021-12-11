@@ -9,6 +9,7 @@ module.exports = class TediousMssql {
     //conf.options = conf.options || {};
     this.config = conf;
     this.config.options = conf.options || {};
+    this.config.authentication = conf.authentication || {};
 
     if (this.config.options) {
       this.config.encrypt = conf.options.encrypt || false;
@@ -22,6 +23,10 @@ module.exports = class TediousMssql {
       this.config.rowCollectionOnRequestCompletion =
         conf.options.rowCollectionOnRequestCompletion || true;
       this.config.debug = conf.options.debug || false;
+    }
+
+    if (this.config.authentication) {
+      this.config.authentication.type = conf.authentication.type || "default";
     }
 
     if (TEDIOUS_MSSQL_DEBUG === "true") {
