@@ -1,3 +1,5 @@
+"use strict";
+const { TEDIOUS_MSSQL_DEBUG } = process.env;
 var Connection = require("tedious").Connection;
 var Request = require("tedious").Request;
 const { TYPES } = require("tedious");
@@ -5,7 +7,6 @@ const { TYPES } = require("tedious");
 module.exports = class TediousMssql {
   constructor(conf) {
     conf.options = conf.options || {};
-
     this.config = {
       server: conf.server || "localhost",
       options: {
@@ -105,23 +106,36 @@ module.exports = class TediousMssql {
     }
 
     return new Promise((resolve, reject) => {
+      if (TEDIOUS_MSSQL_DEBUG === "true") {
+        console.log("Config: ", this.config);
+      }
+
       let connection = new Connection(this.config);
       connection.on("end", function () {
-        //console.log("mssql tedious finalizado");
+        if (TEDIOUS_MSSQL_DEBUG === "true") {
+          console.log("Connection ended");
+        }
       });
       connection.on("error", function (err) {
-        //console.trace(err);
+        if (TEDIOUS_MSSQL_DEBUG === "true") {
+          console.trace("Connection error: ", err);
+        }
       });
       connection.on("connect", function (err) {
         if (err) {
-          //console.trace(err);
+          if (TEDIOUS_MSSQL_DEBUG === "true") {
+            console.trace("Connection error: ", err);
+          }
+
           connection.close();
           reject(err);
         } else {
-          let request = new Request(query, function (err, rowCount, rows) {
-            if (err) {
-              //console.trace(err);
-              reject(err);
+          let request = new Request(query, function (rqerr, rowCount, rows) {
+            if (rqerr) {
+              if (TEDIOUS_MSSQL_DEBUG === "true") {
+                console.trace("Connection error: ", rqerr);
+              }
+              reject(rqerr);
             } else {
               connection.close();
               if (rows && rows.length > 0) {
@@ -146,7 +160,9 @@ module.exports = class TediousMssql {
               request.addParameter(param.name, param.type, param.value);
             });
           }
-          //console.log(query, params);
+          if (TEDIOUS_MSSQL_DEBUG === "true") {
+            console.log("Request Query: ", request);
+          }
           connection.execSql(request);
         }
       });
