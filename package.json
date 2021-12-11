@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/edwinspire/tedious-mssql#readme",
   "dependencies": {
-    "tedious": "^13.1.0"
+    "tedious": "^14.0.0"
   }
 }
