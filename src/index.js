@@ -167,6 +167,7 @@ module.exports = class TediousMssql {
               if (TEDIOUS_MSSQL_DEBUG === "true") {
                 console.trace("Connection error: ", rqerr);
               }
+              connection.close();
               reject(rqerr);
             } else {
               connection.close();
